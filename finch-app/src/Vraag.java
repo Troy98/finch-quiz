@@ -9,5 +9,5 @@ public abstract class Vraag {
         return vraagTekst;
     }
 
-    public abstract boolean isCorrect(String antwoord);
+    public abstract boolean controleerAntwoord(String antwoord);
 }

@@ -1,3 +1,3 @@
 public interface PuntentellingStrategie {
-    public int berekenPunten(int aantalJuisteAntwoorden, int aantalOpenVragen, int aantalMeerkeuzeVragen, long aantalSeconden);
+    public int berekenPunten(int aantalJuisteAntwoorden, long aantalSeconden);
 }

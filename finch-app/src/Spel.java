@@ -16,12 +16,13 @@ public class Spel {
         vragenlijsten.add(new Vragenlijst("Anti Jelmer Wetenschap", wetenschap, VragenlijstSeedScript.maakWillekeurigeVragen(10)));
     }
 
-    public Speler maakSpelerAan(String gebruikersnaam, String wachtwoord) {
+    public Speler registreer(String gebruikersnaam, String wachtwoord) {
         Speler speler = new Speler(gebruikersnaam, wachtwoord);
         spelers.add(speler);
 
-        speler.voegVragenlijstToe(getRandomVragenlijst());
-        speler.voegVragenlijstToe(getRandomVragenlijst());
+        for (int i = 0; i < 2; i++) {
+            speler.addVragenlijstVanSpeler(getRandomVragenlijst());
+        }
 
         return speler;
     }
@@ -46,18 +47,12 @@ public class Spel {
 
     public void voegVragenlijstToeAanSpeler(String naamSpeler, Vragenlijst vragenlijst) {
         Speler gevondenSpeler = getSpeler(naamSpeler);
-        gevondenSpeler.voegVragenlijstToe(vragenlijst);
+        gevondenSpeler.addVragenlijstVanSpeler(vragenlijst);
     }
 
     public void toonVragenlijstenVanSpeler(String spelerNaam) {
-        Speler gevondenSpeler = getSpeler(spelerNaam);
-        gevondenSpeler.toonVragenlijsten();
-    }
-
-    public void verbeterTopScore(String onderwerp) {
-        for (Speler speler : spelers) {
-            speler.verbeterScore(onderwerp);
-        }
+        Speler speler = getSpeler(spelerNaam);
+        speler.toonVragenlijsten();
     }
 
     public void speelQuiz(Speler speler, String onderwerp) {
@@ -65,12 +60,12 @@ public class Spel {
     }
 
     public void selecteerVragenlijst(String vragenlijstNaam, String spelerNaam) {
-        Speler gevondenSpeler = getSpeler(spelerNaam);
-        gevondenSpeler.selecteerVragenlijst(vragenlijstNaam);
+        Speler speler = getSpeler(spelerNaam);
+        speler.selecteerVragenlijst(vragenlijstNaam);
     }
 
-    public void verbeterTopScore2(String test) {
+    public void verbeterTopScore(String test) {
         Speler gevondenSpeler = getSpeler(test);
-        gevondenSpeler.verbeterScore2();
+        gevondenSpeler.verbeterScore();
     }
 }

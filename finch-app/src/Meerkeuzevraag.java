@@ -16,7 +16,7 @@ public class Meerkeuzevraag extends Vraag {
     }
 
     @Override
-    public boolean isCorrect(String antwoord) {
+    public boolean controleerAntwoord(String antwoord) {
         for (KeuzeOptie keuzeOptie : keuzeOpties) {
             if (antwoord.equalsIgnoreCase(keuzeOptie.getOptieTekst()) && keuzeOptie.isJuist()) {
                 return true;

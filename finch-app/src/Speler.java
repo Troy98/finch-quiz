@@ -17,14 +17,14 @@ public class Speler {
         quiz = new Quiz(new Taal("nl"));
     }
 
-    public void voegVragenlijstToe(Vragenlijst vragenlijst) {
+    public void addVragenlijstVanSpeler(Vragenlijst vragenlijst) {
         VragenlijstVanSpeler vragenlijstVanSpeler = new VragenlijstVanSpeler(vragenlijst);
         vragenlijstenVanSpeler.add(vragenlijstVanSpeler);
     }
 
     public void speelQuiz(String onderwerp) {
         for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
-            if (vragenlijstVanSpeler.vragenlijst.getOnderwerp().equals(onderwerp)) {
+            if (vragenlijstVanSpeler.vragenlijst.getVragenlijstNaam().equals(onderwerp)) {
                 quiz.speelQuiz(vragenlijstVanSpeler.vragenlijst);
             }
         }
@@ -32,13 +32,13 @@ public class Speler {
 
     public void toonVragenlijsten() {
         for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
-            System.out.println(vragenlijstVanSpeler.vragenlijst.getOnderwerp());
+            System.out.println(vragenlijstVanSpeler.getVragenlijstNaam());
         }
     }
 
     public void verbeterScore(String vragenlijstNaam) {
         for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
-            if (vragenlijstVanSpeler.vragenlijst.getOnderwerp().equals(vragenlijstNaam)) {
+            if (vragenlijstVanSpeler.vragenlijst.getVragenlijstNaam().equals(vragenlijstNaam)) {
                 if (vragenlijstVanSpeler.getLifetimeBestScore() < quiz.getTotalePunten()) {
                     vragenlijstVanSpeler.setLifetimeBestScore(quiz.getTotalePunten());
                 }
@@ -47,15 +47,14 @@ public class Speler {
     }
 
     public void selecteerVragenlijst(String onderwerp) {
-        Vragenlijst vragenlijstVanSpeler = getVragenlijstVanSpeler(onderwerp);
+        VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(onderwerp);
         quiz.setVragenlijst(vragenlijstVanSpeler);
     }
 
-
-    private Vragenlijst getVragenlijstVanSpeler(String onderwerp) {
+    private VragenlijstVanSpeler getVragenlijstVanSpeler(String vragenlijstnaam) {
         for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
-            if (vragenlijstVanSpeler.vragenlijst.getOnderwerp().equals(onderwerp)) {
-                return vragenlijstVanSpeler.vragenlijst;
+            if (vragenlijstVanSpeler.getVragenlijstNaam().equals(vragenlijstnaam)) {
+                return vragenlijstVanSpeler;
             }
         }
         return null;
@@ -63,5 +62,15 @@ public class Speler {
 
     public void beantwoordVraag(String antwoord) {
         quiz.beantwoordVraag(antwoord);
+    }
+
+    public void verbeterScore() {
+        String gespeeldeVragenlijstNaam = quiz.getGespeeldeVragenlijstNaam();
+
+        int totaalBehaaldePunten = quiz.getTotalePunten();
+
+        VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(gespeeldeVragenlijstNaam);
+
+        vragenlijstVanSpeler.setLifetimeBestScore(totaalBehaaldePunten);
     }
 }

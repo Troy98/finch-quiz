@@ -11,7 +11,7 @@ public class Openvraag extends Vraag {
     }
 
     @Override
-    public boolean isCorrect(String antwoord) {
+    public boolean controleerAntwoord(String antwoord) {
         for (CorrecteAntwoord correctAntwoord : correcteAntwoorden) {
             if (antwoord.equalsIgnoreCase(correctAntwoord.getAntwoordTekst())) {
                 return true;

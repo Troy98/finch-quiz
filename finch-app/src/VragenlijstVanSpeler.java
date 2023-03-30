@@ -17,13 +17,22 @@ public class VragenlijstVanSpeler {
     }
 
     public void setLifetimeBestScore(int lifetimeBestScore) {
+        int currentHighScore = getLifetimeBestScore();
+        if (lifetimeBestScore > currentHighScore) {
+            setNewLifetimeBestScore(lifetimeBestScore);
+        }
+    }
+
+    public void setNewLifetimeBestScore(int lifetimeBestScore) {
         this.lifetimeBestScore = lifetimeBestScore;
+        System.out.println("Nieuwe highscore: " + lifetimeBestScore);
     }
 
-    public Date getAankoopDatum() {
-        return aankoopDatum;
+    public Vraag getRandomVraag() {
+        return vragenlijst.getRandomVraag();
     }
 
-
-
+    public String getVragenlijstNaam() {
+        return vragenlijst.getVragenlijstNaam();
+    }
 }
