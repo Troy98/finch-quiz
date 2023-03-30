@@ -12,9 +12,9 @@ public class VragenlijstSeedScript {
         Thema geschiedenis = new Thema("Geschiedenis");
         Thema wetenschap = new Thema("Wetenschap");
 
-        vragenlijst1 = new Vragenlijst("Quiz 1", algemeneKennis, maakWillekeurigeVragen(10));
-        vragenlijst2 = new Vragenlijst("Quiz 2", geschiedenis, maakWillekeurigeVragen(10));
-        vragenlijst3 = new Vragenlijst("Quiz 3", wetenschap, maakWillekeurigeVragen(10));
+        vragenlijst1 = new Vragenlijst("De Brein Kraker", algemeneKennis, maakWillekeurigeVragen(10));
+        vragenlijst2 = new Vragenlijst("Hersenspoeler", geschiedenis, maakWillekeurigeVragen(10));
+        vragenlijst3 = new Vragenlijst("Anti Jelmer Wetenschap", wetenschap, maakWillekeurigeVragen(10));
 
     }
 

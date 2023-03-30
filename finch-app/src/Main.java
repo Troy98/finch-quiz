@@ -1,12 +1,25 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         VragenlijstSeedScript.generateVragenlijst();
 
-        Speler speler = new Speler("test", "test");
+        Spel spel = new Spel();
+        Speler speler = spel.maakSpelerAan("test", "test");
 
-        speler.voegVragenlijstToe(VragenlijstSeedScript.vragenlijst1);
-        speler.voegVragenlijstToe(VragenlijstSeedScript.vragenlijst2);
+        System.out.println("Kies een vragenlijst om te spelen: ");
+        spel.toonVragenlijstenVanSpeler("test");
+        System.out.println("----");
+        System.out.println("Typ het onderwerp van de vragenlijst: ");
+        String onderwerp = scanner.nextLine();
 
-        speler.speelQuiz(VragenlijstSeedScript.vragenlijst1);
+        spel.speelQuiz(speler, onderwerp);
+
+        for(int i = 0; i < 10; i++) {
+            spel.speelQuiz(speler, onderwerp);
+        }
+
+        spel.verbeterTopScore(onderwerp);
     }
 }

@@ -24,4 +24,6 @@ public class VragenlijstVanSpeler {
         return aankoopDatum;
     }
 
+
+
 }

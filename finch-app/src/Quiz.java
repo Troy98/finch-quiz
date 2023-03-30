@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Quiz {
 
@@ -20,6 +20,20 @@ public class Quiz {
 //        return spelerVragenlijst;
 //    }
 
+    public Vraag[] kiesTienRandomVragen(Vragenlijst vragenlijst) {
+        Vraag[] vragen = vragenlijst.getVragen();
+        Vraag[] tienRandomVragen = new Vraag[10];
+
+        List<Vraag> vragenList = new ArrayList<>(Arrays.asList(vragen));
+        Collections.shuffle(vragenList);
+
+        for (int i = 0; i < 10; i++) {
+            tienRandomVragen[i] = vragenList.get(i);
+        }
+
+        return tienRandomVragen;
+    }
+
     public void speelQuiz(Vragenlijst vragenlijst) {
         Scanner scanner = new Scanner(System.in);
         Vraag[] vragen = vragenlijst.getVragen();
@@ -28,8 +42,10 @@ public class Quiz {
         int aantalFouteAntwoorden = 0;
         long start = System.currentTimeMillis();
 
+        Vraag[] tienRandomVragen = kiesTienRandomVragen(vragenlijst);
+
         for (int i = 0; i < aantalVragen; i++) {
-            Vraag vraag = vragen[i];
+            Vraag vraag = tienRandomVragen[i];
             System.out.println(vraag.getVraagTekst());
             if(vraag instanceof Meerkeuzevraag){
                 for (int j = 0; j < ((Meerkeuzevraag) vraag).getKeuzeOpties().length; j++) {
@@ -47,40 +63,38 @@ public class Quiz {
             }
         }
 
+        if (aantalGoedeAntwoorden == 10) {
+            
+        }
+
+
         long eind = System.currentTimeMillis();
         long tijd = (eind - start) / 1000;
 
         puntentellingStrategie =  new NormalePuntentelling();
+
         int punten = puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, aantalFouteAntwoorden, aantalVragen, tijd);
+
+        totalePunten = punten;
 
 
         System.out.println("Je hebt " + aantalGoedeAntwoorden + " van de " + aantalVragen + " goed");
         System.out.println("Je hebt " + aantalFouteAntwoorden + " van de " + aantalVragen + " fout");
         System.out.println("Je hebt " + tijd + " seconden nodig gehad");
+        System.out.println("Je hebt " + punten + " punten verdiend");
     }
 
-    public void speel(Speler speler) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Welkom");
-        System.out.println("Je hebt " + speler.saldo + " punten");
-        System.out.println("Kies een vragenlijst om te spelen");
-
-        for (int i = 0; i < speler.vragenlijstenVanSpeler.size(); i++) {
-            VragenlijstVanSpeler vragenlijstVanSpeler = speler.vragenlijstenVanSpeler.get(i);
-            System.out.println((i + 1) + ". " + vragenlijstVanSpeler.vragenlijst.getOnderwerp());
+    public void verbeterTopScore(VragenlijstVanSpeler vragenlijstVanSpeler){
+        if(vragenlijstVanSpeler.getLifetimeBestScore() < totalePunten){
+            vragenlijstVanSpeler.setLifetimeBestScore(totalePunten);
         }
+    }
 
-        System.out.println("Kies een vragenlijst om te spelen");
+    public int getTotalePunten(){
+        return totalePunten;
+    }
 
-        int keuze = scanner.nextInt();
-
-
-        VragenlijstVanSpeler gekozenVragenlijst = speler.vragenlijstenVanSpeler.get(keuze - 1);
-
-        speelQuiz(gekozenVragenlijst.vragenlijst);
-
-
-
+    public void setTotalePunten(int totalePunten){
+        this.totalePunten = totalePunten;
     }
 }
