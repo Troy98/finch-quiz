@@ -1,11 +1,11 @@
 public class Taal {
-    private String taal;
+    private String taalNaam;
 
-    public Taal(String taal) {
-        this.taal = taal;
+    public Taal(String taalNaam) {
+        this.taalNaam = taalNaam;
     }
 
-    public String getTaal() {
-        return taal;
+    public String getTaalNaam() {
+        return taalNaam;
     }
 }

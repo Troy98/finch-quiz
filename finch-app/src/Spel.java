@@ -32,9 +32,6 @@ public class Spel {
         return vragenlijsten.get(randomIndex);
     }
 
-    public void verwijderSpeler(Speler speler) {
-        spelers.remove(speler);
-    }
 
     public Speler getSpeler(String gebruikersnaam) {
         for (Speler speler : spelers) {
@@ -55,17 +52,13 @@ public class Spel {
         speler.toonVragenlijsten();
     }
 
-    public void speelQuiz(Speler speler, String onderwerp) {
-        speler.speelQuiz(onderwerp);
-    }
-
     public void selecteerVragenlijst(String vragenlijstNaam, String spelerNaam) {
         Speler speler = getSpeler(spelerNaam);
         speler.selecteerVragenlijst(vragenlijstNaam);
     }
 
     public void verbeterTopScore(String test) {
-        Speler gevondenSpeler = getSpeler(test);
-        gevondenSpeler.verbeterScore();
+        Speler speler = getSpeler(test);
+        speler.verbeterScore();
     }
 }

@@ -5,8 +5,8 @@ public class Speler {
     String gebruikersnaam;
     String wachtwoord;
     int saldo;
-    int startSaldo = 200;
-    private Quiz quiz;
+    final int startSaldo = 200;
+    private Quiz huidigeQuiz;
 
     ArrayList<VragenlijstVanSpeler> vragenlijstenVanSpeler = new ArrayList<VragenlijstVanSpeler>();
 
@@ -14,7 +14,16 @@ public class Speler {
         this.gebruikersnaam = gebruikersnaam;
         this.wachtwoord = wachtwoord;
         this.saldo = startSaldo;
-        quiz = new Quiz(new Taal("nl"));
+        Taal taal = new Taal("nl");
+        huidigeQuiz = new Quiz(taal);
+    }
+
+    public void addSaldo(int saldo) {
+        this.saldo += saldo;
+    }
+
+    public void removeSaldo(int saldo) {
+        this.saldo -= saldo;
     }
 
     public void addVragenlijstVanSpeler(Vragenlijst vragenlijst) {
@@ -22,13 +31,6 @@ public class Speler {
         vragenlijstenVanSpeler.add(vragenlijstVanSpeler);
     }
 
-    public void speelQuiz(String onderwerp) {
-        for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
-            if (vragenlijstVanSpeler.vragenlijst.getVragenlijstNaam().equals(onderwerp)) {
-                quiz.speelQuiz(vragenlijstVanSpeler.vragenlijst);
-            }
-        }
-    }
 
     public void toonVragenlijsten() {
         for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
@@ -36,19 +38,9 @@ public class Speler {
         }
     }
 
-    public void verbeterScore(String vragenlijstNaam) {
-        for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
-            if (vragenlijstVanSpeler.vragenlijst.getVragenlijstNaam().equals(vragenlijstNaam)) {
-                if (vragenlijstVanSpeler.getLifetimeBestScore() < quiz.getTotalePunten()) {
-                    vragenlijstVanSpeler.setLifetimeBestScore(quiz.getTotalePunten());
-                }
-            }
-        }
-    }
-
-    public void selecteerVragenlijst(String onderwerp) {
-        VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(onderwerp);
-        quiz.setVragenlijst(vragenlijstVanSpeler);
+    public void selecteerVragenlijst(String vragenlijstNaam) {
+        VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(vragenlijstNaam);
+        huidigeQuiz.setVragenlijst(vragenlijstVanSpeler);
     }
 
     private VragenlijstVanSpeler getVragenlijstVanSpeler(String vragenlijstnaam) {
@@ -61,16 +53,21 @@ public class Speler {
     }
 
     public void beantwoordVraag(String antwoord) {
-        quiz.beantwoordVraag(antwoord);
+        huidigeQuiz.beantwoordVraag(antwoord);
     }
 
     public void verbeterScore() {
-        String gespeeldeVragenlijstNaam = quiz.getGespeeldeVragenlijstNaam();
+        int extraSaldoBijAlleVragenGoed = 2;
+        String gespeeldeVragenlijstNaam = huidigeQuiz.getGespeeldeVragenlijstNaam();
 
-        int totaalBehaaldePunten = quiz.getTotalePunten();
+        int totaalBehaaldePunten = huidigeQuiz.getTotalePunten();
+        boolean alleVragenGoedBeantwoord = huidigeQuiz.isAllesGoedBeantwoord();
+        if (alleVragenGoedBeantwoord) {
+            addSaldo(extraSaldoBijAlleVragenGoed);
+        }
 
         VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(gespeeldeVragenlijstNaam);
 
-        vragenlijstVanSpeler.setLifetimeBestScore(totaalBehaaldePunten);
+        vragenlijstVanSpeler.updateLifetimeBestScore(totaalBehaaldePunten);
     }
 }

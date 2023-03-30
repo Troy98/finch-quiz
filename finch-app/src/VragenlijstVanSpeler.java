@@ -16,14 +16,14 @@ public class VragenlijstVanSpeler {
         return lifetimeBestScore;
     }
 
-    public void setLifetimeBestScore(int lifetimeBestScore) {
+    public void updateLifetimeBestScore(int lifetimeBestScore) {
         int currentHighScore = getLifetimeBestScore();
         if (lifetimeBestScore > currentHighScore) {
-            setNewLifetimeBestScore(lifetimeBestScore);
+            setLifetimeBestScore(lifetimeBestScore);
         }
     }
 
-    public void setNewLifetimeBestScore(int lifetimeBestScore) {
+    public void setLifetimeBestScore(int lifetimeBestScore) {
         this.lifetimeBestScore = lifetimeBestScore;
         System.out.println("Nieuwe highscore: " + lifetimeBestScore);
     }

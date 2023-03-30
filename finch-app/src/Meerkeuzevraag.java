@@ -9,7 +9,6 @@ public class Meerkeuzevraag extends Vraag {
     public KeuzeOptie[] getKeuzeOpties() {
         return keuzeOpties;
     }
-    //make a getOptions
 
     public KeuzeOptie[] getOpties() {
         return keuzeOpties;

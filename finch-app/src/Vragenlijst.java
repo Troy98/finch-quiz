@@ -5,6 +5,7 @@ public class Vragenlijst {
     private String vragenlijstNaam;
     private Thema thema;
     private Vraag[] vragen;
+    private int prijsInMunten;
 
     public Vragenlijst(String vragenlijstNaam, Thema thema, Vraag[] vragen) {
         this.vragenlijstNaam = vragenlijstNaam;
@@ -28,5 +29,9 @@ public class Vragenlijst {
         Random random = new Random();
         int randomIndex = random.nextInt(vragen.length);
         return vragen[randomIndex];
+    }
+
+    public int getPrijsInMunten() {
+        return prijsInMunten;
     }
 }
