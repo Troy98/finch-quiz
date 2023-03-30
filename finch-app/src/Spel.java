@@ -1,36 +1,57 @@
 import java.util.ArrayList;
 
 public class Spel {
-
-    //start the quiz
-
     private ArrayList<Speler> spelers = new ArrayList<Speler>();
+    private ArrayList<Vragenlijst> vragenlijsten = new ArrayList<Vragenlijst>();
+    private Quiz quiz = new Quiz(new Taal("Nederlands"));
 
+
+    public Spel() {
+        Thema algemeneKennis = new Thema("Algemene kennis");
+        Thema geschiedenis = new Thema("Geschiedenis");
+        Thema wetenschap = new Thema("Wetenschap");
+
+        vragenlijsten.add(new Vragenlijst("De Brein Kraker", algemeneKennis, VragenlijstSeedScript.maakWillekeurigeVragen(10)));
+        vragenlijsten.add(new Vragenlijst("Hersenspoeler", geschiedenis, VragenlijstSeedScript.maakWillekeurigeVragen(10)));
+        vragenlijsten.add(new Vragenlijst("Anti Jelmer Wetenschap", wetenschap, VragenlijstSeedScript.maakWillekeurigeVragen(10)));
+    }
 
     public Speler maakSpelerAan(String gebruikersnaam, String wachtwoord) {
         Speler speler = new Speler(gebruikersnaam, wachtwoord);
         spelers.add(speler);
 
-        speler.voegVragenlijstToe(VragenlijstSeedScript.vragenlijst1);
-        speler.voegVragenlijstToe(VragenlijstSeedScript.vragenlijst2);
+        speler.voegVragenlijstToe(getRandomVragenlijst());
+        speler.voegVragenlijstToe(getRandomVragenlijst());
 
         return speler;
+    }
+
+    public Vragenlijst getRandomVragenlijst() {
+        int randomIndex = (int) (Math.random() * vragenlijsten.size());
+        return vragenlijsten.get(randomIndex);
     }
 
     public void verwijderSpeler(Speler speler) {
         spelers.remove(speler);
     }
 
-    public void voegVragenlijstToeAanSpeler(Speler speler, Vragenlijst vragenlijst) {
-        speler.voegVragenlijstToe(vragenlijst);
+    public Speler getSpeler(String gebruikersnaam) {
+        for (Speler speler : spelers) {
+            if (speler.gebruikersnaam.equals(gebruikersnaam)) {
+                return speler;
+            }
+        }
+        return null;
+    }
+
+    public void voegVragenlijstToeAanSpeler(String naamSpeler, Vragenlijst vragenlijst) {
+        Speler gevondenSpeler = getSpeler(naamSpeler);
+        gevondenSpeler.voegVragenlijstToe(vragenlijst);
     }
 
     public void toonVragenlijstenVanSpeler(String spelerNaam) {
-        for (Speler speler : spelers) {
-            if (speler.gebruikersnaam.equals(spelerNaam)) {
-                speler.toonVragenlijsten();
-            }
-        }
+        Speler gevondenSpeler = getSpeler(spelerNaam);
+        gevondenSpeler.toonVragenlijsten();
     }
 
     public void verbeterTopScore(String onderwerp) {
@@ -43,4 +64,13 @@ public class Spel {
         speler.speelQuiz(onderwerp);
     }
 
+    public void selecteerVragenlijst(String vragenlijstNaam, String spelerNaam) {
+        Speler gevondenSpeler = getSpeler(spelerNaam);
+        gevondenSpeler.selecteerVragenlijst(vragenlijstNaam);
+    }
+
+    public void verbeterTopScore2(String test) {
+        Speler gevondenSpeler = getSpeler(test);
+        gevondenSpeler.verbeterScore2();
+    }
 }

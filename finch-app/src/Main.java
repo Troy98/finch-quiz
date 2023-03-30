@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        VragenlijstSeedScript.generateVragenlijst();
 
         Spel spel = new Spel();
         Speler speler = spel.maakSpelerAan("test", "test");
@@ -12,14 +11,21 @@ public class Main {
         spel.toonVragenlijstenVanSpeler("test");
         System.out.println("----");
         System.out.println("Typ het onderwerp van de vragenlijst: ");
-        String onderwerp = scanner.nextLine();
+        String vragenlijstNaam = scanner.nextLine();
 
-        spel.speelQuiz(speler, onderwerp);
+        spel.selecteerVragenlijst(vragenlijstNaam, "test");
+//        spel.speelQuiz(speler, onderwerp);
 
         for(int i = 0; i < 10; i++) {
-            spel.speelQuiz(speler, onderwerp);
+//            spel.speelQuiz(speler, onderwerp);
+//            speler.speelQuiz(onderwerp);
+//
+//            speler.speelQuiz(onderwerp);
+            String antwoord = scanner.nextLine();
+            speler.beantwoordVraag(antwoord);
         }
 
-        spel.verbeterTopScore(onderwerp);
+        spel.verbeterTopScore(vragenlijstNaam);
+        spel.verbeterTopScore2("test");
     }
 }

@@ -21,7 +21,6 @@ public class VragenlijstSeedScript {
     public static Vraag[] maakWillekeurigeVragen(int aantalVragen) {
         ArrayList<Vraag> vragen = new ArrayList<>();
 
-        // Maak een array van vragen
         vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Nederland?", new KeuzeOptie[]{
                 new KeuzeOptie("Rotterdam", false),
                 new KeuzeOptie("Den Haag", false),
@@ -137,8 +136,6 @@ public class VragenlijstSeedScript {
                 new CorrecteAntwoord("Ankara"),
                 new CorrecteAntwoord("ankara")
         }));
-
-        //maak meerkeuze vragen
 
         vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Nederland?", new KeuzeOptie[]{
                 new KeuzeOptie("Rotterdam", false),

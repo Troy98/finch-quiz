@@ -45,4 +45,23 @@ public class Speler {
             }
         }
     }
+
+    public void selecteerVragenlijst(String onderwerp) {
+        Vragenlijst vragenlijstVanSpeler = getVragenlijstVanSpeler(onderwerp);
+        quiz.setVragenlijst(vragenlijstVanSpeler);
+    }
+
+
+    private Vragenlijst getVragenlijstVanSpeler(String onderwerp) {
+        for (VragenlijstVanSpeler vragenlijstVanSpeler : vragenlijstenVanSpeler) {
+            if (vragenlijstVanSpeler.vragenlijst.getOnderwerp().equals(onderwerp)) {
+                return vragenlijstVanSpeler.vragenlijst;
+            }
+        }
+        return null;
+    }
+
+    public void beantwoordVraag(String antwoord) {
+        quiz.beantwoordVraag(antwoord);
+    }
 }

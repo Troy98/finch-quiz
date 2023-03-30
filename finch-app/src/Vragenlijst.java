@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Vragenlijst {
 
     private String onderwerp;
@@ -22,5 +24,9 @@ public class Vragenlijst {
         return vragen;
     }
 
-
+    public Vraag getRandomVraag() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(vragen.length);
+        return vragen[randomIndex];
+    }
 }
