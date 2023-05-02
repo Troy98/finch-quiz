@@ -40,6 +40,7 @@ public class Speler {
 
     public void selecteerVragenlijst(String vragenlijstNaam) {
         VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(vragenlijstNaam);
+        
         huidigeQuiz.setVragenlijst(vragenlijstVanSpeler);
     }
 

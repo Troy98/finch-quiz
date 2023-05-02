@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Quiz {
 
@@ -12,6 +12,7 @@ public class Quiz {
     private PuntentellingStrategie puntentellingStrategie = new NormalePuntentelling();
     private ArrayList<Vraag> vragenVoorQuiz = new ArrayList<Vraag>();
     public VragenlijstVanSpeler vragenlijst;
+
     long startTime = 0;
 
     public Quiz(Taal taal) {
@@ -21,7 +22,7 @@ public class Quiz {
     }
 
     public void printQuizResultaat(int aantalGoedeAntwoorden, long tijd, int punten) {
-        System.out.println("Je hebt " + aantalGoedeAntwoorden +  " goed");
+        System.out.println("Je hebt " + aantalGoedeAntwoorden + " goed");
         System.out.println("Je hebt " + tijd + " seconden nodig gehad");
         System.out.println("Je hebt " + punten + " punten verdiend");
     }
@@ -65,20 +66,32 @@ public class Quiz {
     private int getAantalBeantwoordeVragen() {
         return aantalBeantwoordeVragen;
     }
+    private void setAantalBeantwoordeVragen(int aantalBeantwoordeVragen) {
+        this.aantalBeantwoordeVragen = aantalBeantwoordeVragen;
+    }
+    private void setAantalGoedeAntwoorden(int aantalGoedeAntwoorden) {
+        this.aantalGoedeAntwoorden = aantalGoedeAntwoorden;
+    }
+    private void resetQuiz() {
+        setAantalBeantwoordeVragen(0);
+        setAantalGoedeAntwoorden(0);
+    }
 
     public long getStartTime() {
         return startTime;
     }
+
     public void beantwoordVraag(String antwoord) {
         boolean isCorrect = vragenVoorQuiz.get(aantalBeantwoordeVragen).controleerAntwoord(antwoord);
+
+        slaAntwoordOp(antwoord, isCorrect);
 
         verhoogAantalBeantwoordeVragen();
 
         if (isCorrect) {
             System.out.println("Goed");
             verhoogAantalVragenGoed();
-        }
-        else {
+        } else {
             System.out.println("Fout");
         }
 
@@ -92,6 +105,7 @@ public class Quiz {
             int behaaldePunten = puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, tijdInSeconde);
             setTotalePunten(behaaldePunten);
             printQuizResultaat(aantalGoedeAntwoorden, tijdInSeconde, totalePunten);
+            resetQuiz();
         } else {
             printVolgendeVraag();
         }
@@ -111,5 +125,13 @@ public class Quiz {
 
     public boolean isAllesGoedBeantwoord() {
         return allesGoedBeantwoord;
+    }
+
+    public void slaAntwoordOp(String antwoord, boolean isCorrect) {
+        vragenlijst.getVragenlijst().slaVraagOp(antwoord, isCorrect, getHuidigeVraag());
+    }
+
+    private Vraag getHuidigeVraag() {
+        return vragenVoorQuiz.get(aantalBeantwoordeVragen);
     }
 }

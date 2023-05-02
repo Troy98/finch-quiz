@@ -22,5 +22,23 @@ public class Main {
         }
 
         spel.verbeterTopScore("test");
+
+
+        System.out.println("");
+        System.out.println("Nog een vragenlijst spelen? Kies een vragenlijst om te spelen:");
+        spel.toonVragenlijstenVanSpeler("test");
+        System.out.println("----");
+
+        System.out.println("Typ het onderwerp van de vragenlijst: ");
+        String vragenlijstNaam2 = scanner.nextLine();
+
+        spel.selecteerVragenlijst(vragenlijstNaam2, "test");
+
+        for (int i = 0; i < 10; i++) {
+            String antwoord = scanner.nextLine();
+            speler.beantwoordVraag(antwoord);
+        }
+
+        spel.verbeterTopScore("test");
     }
 }

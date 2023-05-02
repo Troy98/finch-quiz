@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Vragenlijst {
@@ -6,11 +7,13 @@ public class Vragenlijst {
     private Thema thema;
     private Vraag[] vragen;
     private int prijsInMunten;
+    private ArrayList<BeantwoordeVragenVanVragenlijst> beantwoordeVragenVanVragenlijst;
 
     public Vragenlijst(String vragenlijstNaam, Thema thema, Vraag[] vragen) {
         this.vragenlijstNaam = vragenlijstNaam;
         this.thema = thema;
         this.vragen = vragen;
+        this.beantwoordeVragenVanVragenlijst = new ArrayList<BeantwoordeVragenVanVragenlijst>();
     }
 
     public String getVragenlijstNaam() {
@@ -33,5 +36,9 @@ public class Vragenlijst {
 
     public int getPrijsInMunten() {
         return prijsInMunten;
+    }
+
+    public void slaVraagOp(String antwoord, boolean isCorrect, Vraag vraag) {
+        beantwoordeVragenVanVragenlijst.add(new BeantwoordeVragenVanVragenlijst(antwoord, isCorrect, vraag));
     }
 }
