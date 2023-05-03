@@ -38,7 +38,7 @@ public class Vragenlijst {
         return prijsInMunten;
     }
 
-    public void slaVraagOp(String antwoord, boolean isCorrect, Vraag vraag) {
+    public void slaAntwoordOp(String antwoord, boolean isCorrect, Vraag vraag) {
         beantwoordeVragenVanVragenlijst.add(new BeantwoordeVragenVanVragenlijst(antwoord, isCorrect, vraag));
     }
 }

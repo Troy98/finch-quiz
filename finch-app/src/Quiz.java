@@ -11,7 +11,7 @@ public class Quiz {
     private boolean allesGoedBeantwoord = false;
     private PuntentellingStrategie puntentellingStrategie = new NormalePuntentelling();
     private ArrayList<Vraag> vragenVoorQuiz = new ArrayList<Vraag>();
-    public VragenlijstVanSpeler vragenlijst;
+    public VragenlijstVanSpeler vragenlijstVanSpeler;
 
     long startTime = 0;
 
@@ -50,7 +50,7 @@ public class Quiz {
     }
 
     public void setTeSpelenVragenlijstVanSpeler(VragenlijstVanSpeler vragenlijstVanSpeler) {
-        vragenlijst = vragenlijstVanSpeler;
+        this.vragenlijstVanSpeler = vragenlijstVanSpeler;
     }
 
     private void startTimer() {
@@ -66,15 +66,19 @@ public class Quiz {
     private int getAantalBeantwoordeVragen() {
         return aantalBeantwoordeVragen;
     }
+
     private void setAantalBeantwoordeVragen(int aantalBeantwoordeVragen) {
         this.aantalBeantwoordeVragen = aantalBeantwoordeVragen;
     }
+
     private void setAantalGoedeAntwoorden(int aantalGoedeAntwoorden) {
         this.aantalGoedeAntwoorden = aantalGoedeAntwoorden;
     }
+
     private void resetQuiz() {
         setAantalBeantwoordeVragen(0);
         setAantalGoedeAntwoorden(0);
+        vragenVoorQuiz.clear();
     }
 
     public long getStartTime() {
@@ -120,7 +124,7 @@ public class Quiz {
     }
 
     public String getGespeeldeVragenlijstNaam() {
-        return vragenlijst.getVragenlijstNaam();
+        return this.vragenlijstVanSpeler.getVragenlijstNaam();
     }
 
     public boolean isAllesGoedBeantwoord() {
@@ -128,7 +132,10 @@ public class Quiz {
     }
 
     public void slaAntwoordOp(String antwoord, boolean isCorrect) {
-        vragenlijst.getVragenlijst().slaVraagOp(antwoord, isCorrect, getHuidigeVraag());
+        Vraag vraag = getHuidigeVraag();
+
+        var vragenlijst = vragenlijstVanSpeler.getVragenlijst();
+        vragenlijst.slaAntwoordOp(antwoord, isCorrect, vraag);
     }
 
     private Vraag getHuidigeVraag() {
