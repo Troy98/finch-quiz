@@ -110,8 +110,7 @@ public class Quiz {
             if (aantalGoedeAntwoorden == getAantalVragenInQuiz()) {
                 allesGoedBeantwoord = true;
             }
-            int behaaldePunten = puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, tijdInSeconde);
-            setTotalePunten(behaaldePunten);
+            setTotalePunten(puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, tijdInSeconde));
             printQuizResultaat(aantalGoedeAntwoorden, tijdInSeconde, totalePunten);
             resetQuiz();
         } else {
