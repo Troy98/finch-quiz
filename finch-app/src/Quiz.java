@@ -12,6 +12,7 @@ public class Quiz {
     private PuntentellingStrategie puntentellingStrategie = new NormalePuntentelling();
     private ArrayList<Vraag> vragenVoorQuiz = new ArrayList<Vraag>();
     public VragenlijstVanSpeler vragenlijstVanSpeler;
+    public final int aantalVragenInQuiz = 10;
 
     long startTime = 0;
 
@@ -37,16 +38,19 @@ public class Quiz {
     }
 
     public void setVragenlijst(VragenlijstVanSpeler vragenlijstVanSpeler) {
-        int aantalVragenInQuiz = 10;
         startTimer();
 
         setTeSpelenVragenlijstVanSpeler(vragenlijstVanSpeler);
 
-        for (int i = 0; i < aantalVragenInQuiz; i++) {
+        for (int i = 0; i < getAantalVragenInQuiz(); i++) {
             vragenVoorQuiz.add(vragenlijstVanSpeler.getRandomVraag());
         }
 
         printVolgendeVraag();
+    }
+
+    public int getAantalVragenInQuiz() {
+        return aantalVragenInQuiz;
     }
 
     public void setTeSpelenVragenlijstVanSpeler(VragenlijstVanSpeler vragenlijstVanSpeler) {
@@ -58,7 +62,7 @@ public class Quiz {
     }
 
     private void printVolgendeVraag() {
-        if (getAantalBeantwoordeVragen() < 10) {
+        if (getAantalBeantwoordeVragen() < getAantalVragenInQuiz()) {
             System.out.println(vragenVoorQuiz.get(getAantalBeantwoordeVragen()).getVraagTekst());
         }
     }
@@ -99,11 +103,11 @@ public class Quiz {
             System.out.println("Fout");
         }
 
-        if (aantalBeantwoordeVragen == 10) {
+        if (aantalBeantwoordeVragen == getAantalVragenInQuiz()) {
             long eind = System.currentTimeMillis();
             long tijdInSeconde = (eind - getStartTime()) / 1000;
 
-            if (aantalGoedeAntwoorden == 10) {
+            if (aantalGoedeAntwoorden == getAantalVragenInQuiz()) {
                 allesGoedBeantwoord = true;
             }
             int behaaldePunten = puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, tijdInSeconde);
