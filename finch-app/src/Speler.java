@@ -62,13 +62,13 @@ public class Speler {
         String gespeeldeVragenlijstNaam = huidigeQuiz.getGespeeldeVragenlijstNaam();
 
         int totaalBehaaldePunten = huidigeQuiz.getTotalePunten();
+        VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(gespeeldeVragenlijstNaam);
+
+        vragenlijstVanSpeler.updateLifetimeBestScore(totaalBehaaldePunten);
+
         boolean alleVragenGoedBeantwoord = huidigeQuiz.isAllesGoedBeantwoord();
         if (alleVragenGoedBeantwoord) {
             addSaldo(extraSaldoBijAlleVragenGoed);
         }
-
-        VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(gespeeldeVragenlijstNaam);
-
-        vragenlijstVanSpeler.updateLifetimeBestScore(totaalBehaaldePunten);
     }
 }
