@@ -5,7 +5,6 @@ public class Spel {
     private ArrayList<Vragenlijst> vragenlijsten = new ArrayList<Vragenlijst>();
     private Quiz quiz = new Quiz(new Taal("Nederlands"));
 
-
     public Spel() {
         Thema algemeneKennis = new Thema("Algemene kennis");
         Thema geschiedenis = new Thema("Geschiedenis");

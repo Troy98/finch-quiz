@@ -151,6 +151,41 @@ public class VragenlijstSeedScript {
                 new KeuzeOptie("Brugge", false)
         }));
 
+        vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Duitsland?", new KeuzeOptie[]{
+                new KeuzeOptie("Berlijn", true),
+                new KeuzeOptie("Hamburg", false),
+                new KeuzeOptie("München", false),
+                new KeuzeOptie("Keulen", false)
+        }));
+
+        vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Frankrijk?", new KeuzeOptie[]{
+                new KeuzeOptie("Parijs", true),
+                new KeuzeOptie("Marseille", false),
+                new KeuzeOptie("Lyon", false),
+                new KeuzeOptie("Toulouse", false)
+        }));
+
+        vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Spanje?", new KeuzeOptie[]{
+                new KeuzeOptie("Madrid", true),
+                new KeuzeOptie("Barcelona", false),
+                new KeuzeOptie("Valencia", false),
+                new KeuzeOptie("Sevilla", false)
+        }));
+
+        vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Italië?", new KeuzeOptie[]{
+                new KeuzeOptie("Rome", true),
+                new KeuzeOptie("Milaan", false),
+                new KeuzeOptie("Napels", false),
+                new KeuzeOptie("Turijn", false)
+        }));
+
+        vragen.add(new Meerkeuzevraag("Wat is de hoofdstad van Engeland?", new KeuzeOptie[]{
+                new KeuzeOptie("Londen", true),
+                new KeuzeOptie("Manchester", false),
+                new KeuzeOptie("Liverpool", false),
+                new KeuzeOptie("Birmingham", false)
+        }));
+
         Collections.shuffle(vragen);
         Vraag[] willekeurigeVragen = new Vraag[aantalVragen];
         for (int i = 0; i < aantalVragen; i++) {

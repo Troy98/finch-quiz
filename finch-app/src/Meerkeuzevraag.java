@@ -23,4 +23,12 @@ public class Meerkeuzevraag extends Vraag {
         }
         return false;
     }
+
+    @Override
+    public void printVraag() {
+        super.printVraag();
+        for (KeuzeOptie keuzeOptie : keuzeOpties) {
+            System.out.println("- " + keuzeOptie.getOptieTekst());
+        }
+    }
 }

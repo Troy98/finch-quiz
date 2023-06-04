@@ -24,8 +24,10 @@ public class Main {
         spel.verbeterTopScore("test");
 
 
-        System.out.println("");
-        System.out.println("Nog een vragenlijst spelen? Kies een vragenlijst om te spelen:");
+
+
+
+        System.out.println("Kies een vragenlijst om te spelen:");
         spel.toonVragenlijstenVanSpeler("test");
         System.out.println("----");
 

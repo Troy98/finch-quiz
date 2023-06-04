@@ -35,8 +35,4 @@ public class VragenlijstVanSpeler {
     public String getVragenlijstNaam() {
         return vragenlijst.getVragenlijstNaam();
     }
-
-    public Vragenlijst getVragenlijst() {
-        return vragenlijst;
-    }
 }

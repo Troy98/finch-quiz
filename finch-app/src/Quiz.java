@@ -11,9 +11,9 @@ public class Quiz {
     private boolean allesGoedBeantwoord = false;
     private PuntentellingStrategie puntentellingStrategie = new NormalePuntentelling();
     private ArrayList<Vraag> vragenVoorQuiz = new ArrayList<Vraag>();
-    public VragenlijstVanSpeler vragenlijstVanSpeler;
-    public final int aantalVragenInQuiz = 10;
+    public VragenlijstVanSpeler vragenlijst;
 
+    private ArrayList beantwoordeVragen = new ArrayList<BeantwoordeVragen>();
     long startTime = 0;
 
     public Quiz(Taal taal) {
@@ -23,7 +23,7 @@ public class Quiz {
     }
 
     public void printQuizResultaat(int aantalGoedeAntwoorden, long tijd, int punten) {
-        System.out.println("Je hebt " + aantalGoedeAntwoorden + " goed");
+        System.out.println("Je hebt " + aantalGoedeAntwoorden +  " goed");
         System.out.println("Je hebt " + tijd + " seconden nodig gehad");
         System.out.println("Je hebt " + punten + " punten verdiend");
     }
@@ -38,23 +38,20 @@ public class Quiz {
     }
 
     public void setVragenlijst(VragenlijstVanSpeler vragenlijstVanSpeler) {
+        int aantalVragenInQuiz = 10;
         startTimer();
 
         setTeSpelenVragenlijstVanSpeler(vragenlijstVanSpeler);
 
-        for (int i = 0; i < getAantalVragenInQuiz(); i++) {
+        for (int i = 0; i < aantalVragenInQuiz; i++) {
             vragenVoorQuiz.add(vragenlijstVanSpeler.getRandomVraag());
         }
 
         printVolgendeVraag();
     }
 
-    public int getAantalVragenInQuiz() {
-        return aantalVragenInQuiz;
-    }
-
     public void setTeSpelenVragenlijstVanSpeler(VragenlijstVanSpeler vragenlijstVanSpeler) {
-        this.vragenlijstVanSpeler = vragenlijstVanSpeler;
+        vragenlijst = vragenlijstVanSpeler;
     }
 
     private void startTimer() {
@@ -62,57 +59,46 @@ public class Quiz {
     }
 
     private void printVolgendeVraag() {
-        if (getAantalBeantwoordeVragen() < getAantalVragenInQuiz()) {
-            System.out.println(vragenVoorQuiz.get(getAantalBeantwoordeVragen()).getVraagTekst());
+        if (getAantalBeantwoordeVragen() < 10) {
+            Vraag vraag = vragenVoorQuiz.get(getAantalBeantwoordeVragen());
+            vraag.printVraag();
         }
     }
+
 
     private int getAantalBeantwoordeVragen() {
         return aantalBeantwoordeVragen;
     }
 
-    private void setAantalBeantwoordeVragen(int aantalBeantwoordeVragen) {
-        this.aantalBeantwoordeVragen = aantalBeantwoordeVragen;
-    }
-
-    private void setAantalGoedeAntwoorden(int aantalGoedeAntwoorden) {
-        this.aantalGoedeAntwoorden = aantalGoedeAntwoorden;
-    }
-
-    private void resetQuiz() {
-        setAantalBeantwoordeVragen(0);
-        setAantalGoedeAntwoorden(0);
-        vragenVoorQuiz.clear();
-    }
-
     public long getStartTime() {
         return startTime;
     }
-
     public void beantwoordVraag(String antwoord) {
         boolean isCorrect = vragenVoorQuiz.get(aantalBeantwoordeVragen).controleerAntwoord(antwoord);
 
-        slaAntwoordOp(antwoord, isCorrect);
+        BeantwoordeVragen beantwoordeVraag = new BeantwoordeVragen(vragenVoorQuiz.get(aantalBeantwoordeVragen), antwoord, isCorrect);
+        beantwoordeVragen.add(beantwoordeVraag);
 
         verhoogAantalBeantwoordeVragen();
 
         if (isCorrect) {
             System.out.println("Goed");
             verhoogAantalVragenGoed();
-        } else {
+        }
+        else {
             System.out.println("Fout");
         }
 
-        if (aantalBeantwoordeVragen == getAantalVragenInQuiz()) {
+        if (aantalBeantwoordeVragen == 10) {
             long eind = System.currentTimeMillis();
             long tijdInSeconde = (eind - getStartTime()) / 1000;
 
-            if (aantalGoedeAntwoorden == getAantalVragenInQuiz()) {
+            if (aantalGoedeAntwoorden == 10) {
                 allesGoedBeantwoord = true;
             }
-            setTotalePunten(puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, tijdInSeconde));
+            int behaaldePunten = puntentellingStrategie.berekenPunten(aantalGoedeAntwoorden, tijdInSeconde);
+            setTotalePunten(behaaldePunten);
             printQuizResultaat(aantalGoedeAntwoorden, tijdInSeconde, totalePunten);
-            resetQuiz();
         } else {
             printVolgendeVraag();
         }
@@ -120,6 +106,7 @@ public class Quiz {
 
     private void verhoogAantalVragenGoed() {
         aantalGoedeAntwoorden++;
+        System.out.println("Aantal goed: " + aantalGoedeAntwoorden);
     }
 
     private void verhoogAantalBeantwoordeVragen() {
@@ -127,21 +114,10 @@ public class Quiz {
     }
 
     public String getGespeeldeVragenlijstNaam() {
-        return this.vragenlijstVanSpeler.getVragenlijstNaam();
+        return vragenlijst.getVragenlijstNaam();
     }
 
     public boolean isAllesGoedBeantwoord() {
         return allesGoedBeantwoord;
-    }
-
-    public void slaAntwoordOp(String antwoord, boolean isCorrect) {
-        Vraag vraag = getHuidigeVraag();
-
-        var vragenlijst = vragenlijstVanSpeler.getVragenlijst();
-        vragenlijst.slaAntwoordOp(antwoord, isCorrect, vraag);
-    }
-
-    private Vraag getHuidigeVraag() {
-        return vragenVoorQuiz.get(aantalBeantwoordeVragen);
     }
 }
