@@ -3,8 +3,6 @@ import java.util.ArrayList;
 public class Spel {
     private ArrayList<Speler> spelers = new ArrayList<Speler>();
     private ArrayList<Vragenlijst> vragenlijsten = new ArrayList<Vragenlijst>();
-    private Quiz quiz = new Quiz(new Taal("Nederlands"));
-
     public Spel() {
         Thema algemeneKennis = new Thema("Algemene kennis");
         Thema geschiedenis = new Thema("Geschiedenis");
@@ -24,6 +22,11 @@ public class Spel {
         }
 
         return speler;
+    }
+
+    public void startQuiz(String gebruikersnaam) {
+        Speler speler = getSpeler(gebruikersnaam);
+        speler.nieuweQuiz();
     }
 
     public Vragenlijst getRandomVragenlijst() {

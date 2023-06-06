@@ -8,6 +8,9 @@ public class Speler {
     final int startSaldo = 200;
     private Quiz huidigeQuiz;
 
+    Taal taal;
+
+
     ArrayList<VragenlijstVanSpeler> vragenlijstenVanSpeler = new ArrayList<VragenlijstVanSpeler>();
 
     ArrayList<Quiz> gespeeldeQuizzen = new ArrayList<Quiz>();
@@ -16,8 +19,7 @@ public class Speler {
         this.gebruikersnaam = gebruikersnaam;
         this.wachtwoord = wachtwoord;
         this.saldo = startSaldo;
-        Taal taal = new Taal("nl");
-        huidigeQuiz = new Quiz(taal);
+        this.taal = new Taal("nl");
     }
 
     public void addSaldo(int saldo) {
@@ -41,6 +43,7 @@ public class Speler {
     }
 
     public void selecteerVragenlijst(String vragenlijstNaam) {
+
         VragenlijstVanSpeler vragenlijstVanSpeler = getVragenlijstVanSpeler(vragenlijstNaam);
         huidigeQuiz.setVragenlijst(vragenlijstVanSpeler);
     }
@@ -56,6 +59,10 @@ public class Speler {
 
     public void beantwoordVraag(String antwoord) {
         huidigeQuiz.beantwoordVraag(antwoord);
+    }
+
+    public void nieuweQuiz() {
+        huidigeQuiz = new Quiz(this.taal);
     }
 
     public void verbeterScore() {
