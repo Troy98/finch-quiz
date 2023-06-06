@@ -32,6 +32,7 @@ public class Main {
         System.out.println("Typ het onderwerp van de vragenlijst: ");
         String vragenlijstNaam2 = scanner.nextLine();
 
+        spel.startQuiz("test");
         spel.selecteerVragenlijst(vragenlijstNaam2, "test");
 
         for (int i = 0; i < 10; i++) {
@@ -40,5 +41,6 @@ public class Main {
         }
 
         spel.verbeterTopScore("test");
+        System.out.println("----");
     }
 }
