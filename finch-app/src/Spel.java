@@ -24,7 +24,7 @@ public class Spel {
         return speler;
     }
 
-    public void startQuiz(String gebruikersnaam) {
+    public void nieuweQuiz(String gebruikersnaam) {
         Speler speler = getSpeler(gebruikersnaam);
         speler.nieuweQuiz();
     }
@@ -33,7 +33,6 @@ public class Spel {
         int randomIndex = (int) (Math.random() * vragenlijsten.size());
         return vragenlijsten.get(randomIndex);
     }
-
 
     public Speler getSpeler(String gebruikersnaam) {
         for (Speler speler : spelers) {
@@ -44,13 +43,13 @@ public class Spel {
         return null;
     }
 
-    public void voegVragenlijstToeAanSpeler(String naamSpeler, Vragenlijst vragenlijst) {
-        Speler gevondenSpeler = getSpeler(naamSpeler);
+    public void voegVragenlijstToeAanSpeler(String gebruikersnaam, Vragenlijst vragenlijst) {
+        Speler gevondenSpeler = getSpeler(gebruikersnaam);
         gevondenSpeler.addVragenlijstVanSpeler(vragenlijst);
     }
 
-    public void toonVragenlijstenVanSpeler(String spelerNaam) {
-        Speler speler = getSpeler(spelerNaam);
+    public void toonVragenlijstenVanSpeler(String gebruikersnaam) {
+        Speler speler = getSpeler(gebruikersnaam);
         speler.toonVragenlijsten();
     }
 

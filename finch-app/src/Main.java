@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Typ het onderwerp van de vragenlijst: ");
         String vragenlijstNaam = scanner.nextLine();
 
-        spel.startQuiz("test");
+        spel.nieuweQuiz("test");
         spel.selecteerVragenlijst(vragenlijstNaam, "test");
 
         for (int i = 0; i < 10; i++) {
@@ -32,7 +32,7 @@ public class Main {
         System.out.println("Typ het onderwerp van de vragenlijst: ");
         String vragenlijstNaam2 = scanner.nextLine();
 
-        spel.startQuiz("test");
+        spel.nieuweQuiz("test");
         spel.selecteerVragenlijst(vragenlijstNaam2, "test");
 
         for (int i = 0; i < 10; i++) {
